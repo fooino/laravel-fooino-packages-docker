@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # --- PHP CLI (your "test runner" container) ---
+  php:
+    build: ./php
+    container_name: fooino_php
+    volumes:
+      - ../packages:/var/www/packages   # all packages visible inside
+    networks:
+      - fooino_net
+
+  # --- MySQL ---
+  mysql:
+    image: mysql:8.0
+    container_name: fooino_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret_root_pw
+    ports:
+      - "3307:3306"          # use 3307 on host to avoid conflicts
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fooino_net
+
+  # --- Redis ---
+  redis:
+    image: redis:alpine
+    container_name: fooino_redis
+    ports:
+      - "6380:6379"          # use 6380 on host
+    networks:
+      - fooino_net
+
+volumes:
+  mysql_data:
+
+networks:
+  fooino_net:
+    driver: bridge
