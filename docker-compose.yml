@@ -1,9 +1,10 @@
-version: '3.8'
-
 services:
   # --- PHP CLI (your "test runner" container) ---
   php:
-    build: ./php
+    build:
+      context: ./php
+      args:
+        UID: ${HOST_UID:-1000}
     container_name: fooino_php
     volumes:
       - ../packages:/var/www/packages   # all packages visible inside
