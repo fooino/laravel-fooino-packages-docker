@@ -19,9 +19,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY php.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 ARG UID=1000
-RUN useradd -m -u ${UID} -s /bin/bash saj && \
-    usermod -aG sudo saj
-USER saj
+RUN useradd -m -u ${UID} -s /bin/bash sajad && \
+    usermod -aG sudo sajad
+USER sajad
 
 WORKDIR /var/www
 

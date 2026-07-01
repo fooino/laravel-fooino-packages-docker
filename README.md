@@ -7,7 +7,7 @@ cd ./laravel-fooino-packages-docker
 
 docker-compose -p fooino up -d --build
 
-docker exec -it fooino_php bash
+docker exec -it fooino-php bash
 
 cd ../PACKAGE_NAME
 
